@@ -1,11 +1,11 @@
 """
 Import Reality Capture camera positions into Blender.
 
-Creates three collections:
-  - RC_Frustums: Visual frustum pyramids (mesh) for quick overview
-  - RC_Cameras:  Actual Blender camera objects with correct focal length
-  - RC_Images:   Textured quads showing the drone photos, positioned at each
-                 camera's look direction. Visible in Material Preview mode.
+Creates three collections (named from the CSV filename, e.g. "MyFlight_..."):
+  - {filename}_Frustums: Visual frustum pyramids (mesh) for quick overview
+  - {filename}_Cameras:  Actual Blender camera objects with correct focal length
+  - {filename}_Images:   Textured quads showing the drone photos, positioned at each
+                         camera's look direction. Visible in Material Preview mode.
 
 Usage:
   1. Open Blender
@@ -26,12 +26,12 @@ from mathutils import Matrix, Vector
 # USER SETTINGS - Tweak these
 # =============================================================================
 
-CSV_PATH = r"E:\LIVE-SANDAMAPPING-3INTERMEDIATE-Maps-Models\FromRC\230621-nadir.csv"
+CSV_PATH = r"C:\path\to\your\RealityCapture_export.csv"
 
 # Frustum pyramid size: distance from apex (camera position) to the base
-FRUSTUM_DEPTH = 1.0  # meters
+FRUSTUM_DEPTH = 5.0  # meters
 
-# Aspect ratio of the base (width:height). 4:3 matching your sensor.
+# Aspect ratio of the base (width:height). Match your photo aspect ratio.
 ASPECT_W = 4
 ASPECT_H = 3
 
@@ -40,7 +40,7 @@ ASPECT_H = 3
 HALF_ANGLE_DEG = 30.0
 
 # Sensor dimensions in mm (for the real Blender camera objects).
-# Your drone: 4/3-inch CMOS, 84° diagonal FOV, 24mm equiv.
+# Must match your actual drone/camera sensor. See README for common values.
 SENSOR_WIDTH_MM = 17.3
 SENSOR_HEIGHT_MM = 13.0
 
@@ -55,11 +55,11 @@ COLLECTION_PREFIX = os.path.splitext(os.path.basename(CSV_PATH))[0]
 
 # Image quads: textured planes showing the drone photos.
 # Place low-res JPGs (same filenames as originals) in this folder:
-IMAGES_FOLDER = r"E:\LIVE-SANDAMAPPING-3INTERMEDIATE-Maps-Models\FromRC\thumbs"
+IMAGES_FOLDER = r"C:\path\to\your\thumbs"
 
 # Image quad size (independent of frustum size).
 # Distance from camera position to the image plane along the look direction.
-IMAGE_DEPTH = 1.0  # meters
+IMAGE_DEPTH = 5.0  # meters
 # Half-angle controlling how wide the image quad is (like HALF_ANGLE_DEG for frustums).
 IMAGE_HALF_ANGLE_DEG = 30.0
 
