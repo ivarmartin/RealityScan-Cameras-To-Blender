@@ -39,11 +39,21 @@ You need to set your actual sensor dimensions in the script. Common drone sensor
 | DJI Phantom 4 Pro | 1-inch | 13.2 | 8.8 |
 | DJI Mini 3 Pro | 1/1.3-inch | 9.7 | 7.3 |
 
+## Exporting from Reality Capture
+
+1. Align your images in Reality Capture as usual
+2. In the **WORKFLOW** tab, click **Registration → Export Registration...**
+3. In the export dialog, set the format to **Internal/External Camera Parameters**
+4. Set the file type to **CSV** (`.csv`)
+5. Choose a save location and export
+
+This produces a CSV with the header `#name,x,y,alt,yaw,pitch,roll,f,px,py,k1,k2,k3,k4,t1,t2`. The script uses the first 8 columns (name through focal length); distortion parameters are ignored.
+
 ## Setup
 
 ### Required
 
-1. Export camera parameters from Reality Capture: **Registration → Export → Internal/External Camera Parameters** (CSV format)
+1. Export cameras from Reality Capture (see above)
 2. Edit `CSV_PATH` in the script to point to your CSV file
 
 ### Optional (for image quads + camera backgrounds)
@@ -90,16 +100,6 @@ SENSOR_HEIGHT_MM = 13.0
 # Collection naming (auto-derived from CSV filename, or override manually)
 COLLECTION_PREFIX = "MyFlight"
 ```
-
-## CSV format
-
-The script expects Reality Capture's standard **Internal/External Camera Parameters** export with this header:
-
-```
-#name,x,y,alt,yaw,pitch,roll,f,px,py,k1,k2,k3,k4,t1,t2
-```
-
-Only the first 8 columns are used (name through focal length). Distortion parameters are ignored.
 
 ## Notes
 
